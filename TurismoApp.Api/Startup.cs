@@ -25,8 +25,12 @@ public class Startup
             options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection"),
                                  b => b.MigrationsAssembly("TurismoApp.Infraestructure")));
         services.AddAutoMapper(typeof(MappingProfile));
+
         services.AddScoped<IDepartamentoRepository, DepartamentoRepository>();
         services.AddScoped<IDepartamentoApplication, DepartamentoApplication>();
+
+        services.AddScoped<ICiudadRepository, CiudadRepository>();
+        services.AddScoped<ICiudadApplication, CiudadApplication>();
     }
 
     public void Configure(IApplicationBuilder app, IWebHostEnvironment env)

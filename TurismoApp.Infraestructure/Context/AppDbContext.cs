@@ -12,6 +12,7 @@ public class AppDbContext : DbContext
 
     
     public DbSet<Departamento> Departamentos { get; set; }
+    public DbSet<Ciudad> Ciudades { get; set; }
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {

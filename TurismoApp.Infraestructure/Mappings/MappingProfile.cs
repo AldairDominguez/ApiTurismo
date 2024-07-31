@@ -8,12 +8,14 @@ public class MappingProfile : Profile
 {
     public MappingProfile()
     {
-        //CreateMap<Ciudad, CiudadDto>();
-        //CreateMap<CiudadDto, Ciudad>();
-
         CreateMap<Departamento, DepartamentoDto>();
         CreateMap<DepartamentoDto, Departamento>();
-
         CreateMap<UpdateDepartamentoDto, Departamento>();
+
+        // Configuración de mapeo para Ciudad
+        CreateMap<Ciudad, CiudadDto>();
+        CreateMap<CiudadDto, Ciudad>();
+        CreateMap<CreateCiudadDto, Ciudad>();
+        CreateMap<UpdateCiudadDto, Ciudad>();
     }
 }
