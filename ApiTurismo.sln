@@ -3,15 +3,15 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.10.35027.167
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ApiTurismo", "ApiTurismo\ApiTurismo.csproj", "{62F9DC7F-9717-41D6-8657-E74124830EE4}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TurismoApp.Api", "TurismoApp.Api\TurismoApp.Api.csproj", "{62F9DC7F-9717-41D6-8657-E74124830EE4}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Application", "Application\Application.csproj", "{DF21717A-3F0B-4C8B-844C-7908AF0F7875}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TurismoApp.Application", "TurismoApp.Application\TurismoApp.Application.csproj", "{DF21717A-3F0B-4C8B-844C-7908AF0F7875}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Infraestructure", "Infraestructure\Infraestructure.csproj", "{91401753-7591-4DC7-BC99-F9293A96FF41}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TurismoApp.Infraestructure", "TurismoApp.Infraestructure\TurismoApp.Infraestructure.csproj", "{91401753-7591-4DC7-BC99-F9293A96FF41}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Services", "Services\Services.csproj", "{4CD87D2A-8A3D-4F18-A5F1-E4D9DC08F8CC}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TurismoApp.Services", "TurismoApp.Services\TurismoApp.Services.csproj", "{4CD87D2A-8A3D-4F18-A5F1-E4D9DC08F8CC}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Common", "Common\Common.csproj", "{6A6ABB7F-D8EB-4161-967E-9D9766DC7EB7}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TurismoApp.Common", "TurismoApp.Common\TurismoApp.Common.csproj", "{6A6ABB7F-D8EB-4161-967E-9D9766DC7EB7}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
