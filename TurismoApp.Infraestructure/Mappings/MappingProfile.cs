@@ -17,5 +17,12 @@ public class MappingProfile : Profile
         CreateMap<CiudadDto, Ciudad>();
         CreateMap<CreateCiudadDto, Ciudad>();
         CreateMap<UpdateCiudadDto, Ciudad>();
+
+
+        CreateMap<Cliente, ClienteDto>();
+        CreateMap<ClienteDto, Cliente>();
+        CreateMap<CreateClienteDto, Cliente>();
+        CreateMap<UpdateClienteDto, Cliente>();
+
     }
 }

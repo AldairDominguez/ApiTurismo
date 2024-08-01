@@ -31,6 +31,9 @@ public class Startup
 
         services.AddScoped<ICiudadRepository, CiudadRepository>();
         services.AddScoped<ICiudadApplication, CiudadApplication>();
+
+        services.AddScoped<IClienteRepository, ClienteRepository>();
+        services.AddScoped<IClienteApplication, ClienteApplication>();
     }
 
     public void Configure(IApplicationBuilder app, IWebHostEnvironment env)

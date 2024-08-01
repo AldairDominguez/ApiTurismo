@@ -1,6 +1,5 @@
-﻿using TurismoApp.Infraestructure.Entities;
-using Microsoft.EntityFrameworkCore;
-
+﻿using Microsoft.EntityFrameworkCore;
+using TurismoApp.Infraestructure.Entities;
 
 namespace TurismoApp.Infraestructure.Context;
 
@@ -10,8 +9,8 @@ public class AppDbContext : DbContext
     {
     }
 
-    
     public DbSet<Departamento> Departamentos { get; set; }
+    public DbSet<Cliente> Clientes { get; set; }
     public DbSet<Ciudad> Ciudades { get; set; }
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
