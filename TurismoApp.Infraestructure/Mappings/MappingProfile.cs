@@ -24,5 +24,6 @@ public class MappingProfile : Profile
         CreateMap<CreateClienteDto, Cliente>();
         CreateMap<UpdateClienteDto, Cliente>();
 
+        CreateMap<ClienteDto, UpdateClienteDto>();
     }
 }

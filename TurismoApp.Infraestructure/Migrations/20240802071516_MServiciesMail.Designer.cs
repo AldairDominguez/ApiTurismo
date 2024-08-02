@@ -2,6 +2,7 @@
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using TurismoApp.Infraestructure.Context;
 
@@ -10,9 +11,11 @@ using TurismoApp.Infraestructure.Context;
 namespace TurismoApp.Infraestructure.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    partial class AppDbContextModelSnapshot : ModelSnapshot
+    [Migration("20240802071516_MServiciesMail")]
+    partial class MServiciesMail
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -77,10 +80,6 @@ namespace TurismoApp.Infraestructure.Migrations
                         .HasColumnType("bit");
 
                     b.Property<string>("Nombres")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("VerificationToken")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 

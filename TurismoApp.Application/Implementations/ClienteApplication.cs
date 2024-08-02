@@ -100,4 +100,40 @@ public class ClienteApplication : IClienteApplication
             return ResponseDto.Error(ex.Message);
         }
     }
+
+    public async Task<ResponseDto> VerifyEmailAsync(int clientId)
+    {
+        var cliente = await _clienteRepository.GetClienteByIdAsync(clientId);
+        if (cliente == null)
+        {
+            return ResponseDto.Error("Cliente no encontrado.");
+        }
+
+        cliente.IsVerified = true;
+        var updateClienteDto = _mapper.Map<UpdateClienteDto>(cliente);
+        await _clienteRepository.UpdateClienteAsync(clientId, updateClienteDto);
+
+        return ResponseDto.Ok(null, "Correo verificado con éxito.");
+    }
+
+    public async Task<ResponseDto> SaveVerificationTokenAsync(int clientId, string token)
+    {
+        var cliente = await _clienteRepository.GetClienteByIdAsync(clientId);
+        if (cliente == null)
+        {
+            return ResponseDto.Error("Cliente no encontrado.");
+        }
+
+        cliente.VerificationToken = token;
+
+        var updateClienteDto = _mapper.Map<UpdateClienteDto>(cliente);
+        await _clienteRepository.UpdateClienteAsync(clientId, updateClienteDto);
+        return ResponseDto.Ok();
+    }
+
+    public async Task<bool> VerifyTokenAsync(int clientId, string token)
+    {
+        var cliente = await _clienteRepository.GetClienteByIdAsync(clientId);
+        return cliente != null && cliente.VerificationToken == token;
+    }
 }

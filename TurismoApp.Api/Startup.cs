@@ -34,6 +34,8 @@ public class Startup
 
         services.AddScoped<IClienteRepository, ClienteRepository>();
         services.AddScoped<IClienteApplication, ClienteApplication>();
+
+        services.AddTransient<EmailService>();
     }
 
     public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
