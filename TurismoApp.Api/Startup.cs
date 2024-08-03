@@ -36,6 +36,9 @@ public class Startup
         services.AddScoped<IClienteApplication, ClienteApplication>();
 
         services.AddTransient<EmailService>();
+
+        services.AddScoped<IRecorridoRepository, RecorridoRepository>();
+        services.AddScoped<IRecorridoApplication, RecorridoApplication>();
     }
 
     public void Configure(IApplicationBuilder app, IWebHostEnvironment env)

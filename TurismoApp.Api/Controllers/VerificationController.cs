@@ -20,7 +20,7 @@ namespace TurismoApp.Api.Controllers
             _mapper = mapper;
         }
 
-        [HttpPost("send-verification")]
+        [HttpPost("Enviar-verificación")]
         public async Task<IActionResult> SendVerificationEmail(int clientId)
         {
             var clienteResult = await _clienteApplication.GetClienteByIdAsync(clientId);
@@ -35,7 +35,7 @@ namespace TurismoApp.Api.Controllers
                 return BadRequest("Datos del cliente no válidos.");
             }
 
-            if (cliente.IsVerified)
+            if (cliente.Verificado)
             {
                 return BadRequest("El cliente ya está verificado.");
             }
@@ -54,7 +54,7 @@ namespace TurismoApp.Api.Controllers
             return Ok("Correo de verificación enviado.");
         }
 
-        [HttpGet("verification")]
+        [HttpGet("Verificacion")]
         public async Task<IActionResult> ConfirmEmail(int clientId, string token)
         {
             var isTokenValid = await _clienteApplication.VerifyTokenAsync(clientId, token);
@@ -75,12 +75,12 @@ namespace TurismoApp.Api.Controllers
                 return BadRequest("Datos del cliente no válidos.");
             }
 
-            if (cliente.IsVerified)
+            if (cliente.Verificado)
             {
                 return BadRequest("El cliente ya está verificado.");
             }
 
-            cliente.IsVerified = true;
+            cliente.Verificado = true;
             var updateClienteDto = _mapper.Map<UpdateClienteDto>(cliente);
             var updateResult = await _clienteApplication.UpdateClienteAsync(clientId, updateClienteDto);
             if (!updateResult.IsValid)

@@ -33,6 +33,7 @@ public class ClienteRepository : IClienteRepository
     public async Task AddClienteAsync(CreateClienteDto clienteDto)
     {
         var cliente = _mapper.Map<Cliente>(clienteDto);
+        cliente.VerificacionToken = Guid.NewGuid().ToString();
         _context.Clientes.Add(cliente);
         await _context.SaveChangesAsync();
     }

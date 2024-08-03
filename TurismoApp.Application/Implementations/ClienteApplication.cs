@@ -46,6 +46,8 @@ public class ClienteApplication : IClienteApplication
         }
 
         var cliente = _mapper.Map<Cliente>(clienteDto);
+        cliente.VerificacionToken = Guid.NewGuid().ToString();  
+
         await _clienteRepository.AddClienteAsync(clienteDto);
         var clienteResultDto = _mapper.Map<ClienteDto>(cliente);
 
@@ -109,7 +111,7 @@ public class ClienteApplication : IClienteApplication
             return ResponseDto.Error("Cliente no encontrado.");
         }
 
-        cliente.IsVerified = true;
+        cliente.Verificado = true;
         var updateClienteDto = _mapper.Map<UpdateClienteDto>(cliente);
         await _clienteRepository.UpdateClienteAsync(clientId, updateClienteDto);
 
@@ -124,7 +126,7 @@ public class ClienteApplication : IClienteApplication
             return ResponseDto.Error("Cliente no encontrado.");
         }
 
-        cliente.VerificationToken = token;
+        cliente.VerificacionToken = token;
 
         var updateClienteDto = _mapper.Map<UpdateClienteDto>(cliente);
         await _clienteRepository.UpdateClienteAsync(clientId, updateClienteDto);
@@ -134,6 +136,6 @@ public class ClienteApplication : IClienteApplication
     public async Task<bool> VerifyTokenAsync(int clientId, string token)
     {
         var cliente = await _clienteRepository.GetClienteByIdAsync(clientId);
-        return cliente != null && cliente.VerificationToken == token;
+        return cliente != null && cliente.VerificacionToken == token;
     }
 }
