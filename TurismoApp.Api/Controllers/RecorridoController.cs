@@ -2,7 +2,9 @@
 using Microsoft.AspNetCore.Mvc;
 using TurismoApp.Application.Interfaces;
 using TurismoApp.Common.DTO;
+using TurismoApp.Common.DTO.RecorridoDtos;
 using TurismoApp.Common.Enums;
+using TurismoApp.Infraestructure.Entities;
 
 namespace TurismoApp.Api.Controllers
 {
@@ -34,7 +36,7 @@ namespace TurismoApp.Api.Controllers
             var recorrido = await _recorridoApplication.GetByIdAsync(id);
             if (recorrido == null)
             {
-                return NotFound();
+                return NotFound("Recorrido no encontrado");
             }
             var recorridoDto = _mapper.Map<RecorridoDto>(recorrido);
             return Ok(recorridoDto);
@@ -96,10 +98,6 @@ namespace TurismoApp.Api.Controllers
         [HttpPut("{id}/estado")]
         public async Task<IActionResult> UpdateRecorridoEstado(int id, [FromBody] EstadoRecorrido nuevoEstado)
         {
-            if (nuevoEstado != EstadoRecorrido.EnProgreso && nuevoEstado != EstadoRecorrido.Finalizado)
-            {
-                return BadRequest("El estado solo puede ser actualizado a 'En progreso' o 'Finalizado'.");
-            }
 
             var result = await _recorridoApplication.UpdateEstadoAsync(id, nuevoEstado);
             if (!result.IsValid)
@@ -117,9 +115,21 @@ namespace TurismoApp.Api.Controllers
         }
 
         [HttpGet("FiltroFechas")]
-        public async Task<IActionResult> GetRecorridosByFechaAsync([FromQuery] DateTime fechaInicio, [FromQuery] DateTime fechaFin)
+        public async Task<IActionResult> GetRecorridosByFechaAsync([FromQuery] DateTime? fechaInicio, [FromQuery] DateTime? fechaFin)
         {
-            var result = await _recorridoApplication.GetRecorridosByFechaAsync(fechaInicio, fechaFin);
+            if (!fechaInicio.HasValue || !fechaFin.HasValue)
+            {
+                return BadRequest("Ambas fechas, fechaInicio y fechaFin, son requeridas.");
+               
+            }
+
+            var result = await _recorridoApplication.GetRecorridosByFechaAsync(fechaInicio.Value, fechaFin.Value);
+
+            if (!result.Any())
+            {
+                return NotFound("No se encontraron recorridos en el rango de fechas especificado.");
+            }
+
             return Ok(result);
         }
 

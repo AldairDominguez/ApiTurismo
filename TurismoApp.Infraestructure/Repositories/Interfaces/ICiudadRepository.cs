@@ -1,4 +1,4 @@
-﻿using TurismoApp.Common.DTO;
+﻿using TurismoApp.Common.DTO.CiudadDtos;
 
 namespace TurismoApp.Infraestructure.Repositories.Interfaces;
 
@@ -15,4 +15,8 @@ public interface ICiudadRepository
     Task DeleteCiudadAsync(int id);
 
     Task<bool> CodigoExistsAsync(string codigo);
+
+    Task<bool> ExistsCiudadAsync(string descripcion, int departamentoId);
+
+    Task<bool> ExistsCiudadInOtherDepartamentoAsync(string descripcion, int departamentoId);
 }

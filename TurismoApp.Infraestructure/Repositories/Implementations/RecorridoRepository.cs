@@ -17,19 +17,20 @@ namespace TurismoApp.Infraestructure.Repositories.Implementations
         public async Task<IEnumerable<Recorrido>> GetAllAsync()
         {
             return await _context.Recorridos
-                .Include(r => r.ClienteRecorridos)
+                    .Include(r => r.ClienteRecorridos)
                     .ThenInclude(cr => cr.Cliente)
-                .ToListAsync();
+                    .Where(r => !r.Eliminado)
+                    .ToListAsync();
         }
 
         public async Task<Recorrido> GetByIdAsync(int id)
         {
             return await _context.Recorridos
-                 .Include(r => r.CiudadOrigen)
-                 .Include(r => r.CiudadDestino)
-                 .Include(r => r.ClienteRecorridos)
-                     .ThenInclude(cr => cr.Cliente)
-                .FirstOrDefaultAsync(r => r.Id == id);
+                .Include(r => r.CiudadOrigen)
+                .Include(r => r.CiudadDestino)
+                .Include(r => r.ClienteRecorridos)
+                .ThenInclude(cr => cr.Cliente)
+                .FirstOrDefaultAsync(r => r.Id == id && !r.Eliminado);
         }
 
         public async Task AddAsync(Recorrido recorrido)
@@ -49,7 +50,8 @@ namespace TurismoApp.Infraestructure.Repositories.Implementations
             var recorrido = await _context.Recorridos.FindAsync(id);
             if (recorrido != null)
             {
-                _context.Recorridos.Remove(recorrido);
+                recorrido.Eliminado = true;
+                _context.Recorridos.Update(recorrido);
                 await _context.SaveChangesAsync();
             }
         }

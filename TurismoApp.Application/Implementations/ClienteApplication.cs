@@ -2,6 +2,7 @@
 using TurismoApp.Application.Interfaces;
 using TurismoApp.Common;
 using TurismoApp.Common.DTO;
+using TurismoApp.Common.DTO.ClientesDtos;
 using TurismoApp.Infraestructure.Entities;
 using TurismoApp.Infraestructure.Repositories.Interfaces;
 
@@ -18,7 +19,7 @@ public class ClienteApplication : IClienteApplication
         _mapper = mapper;
     }
 
-    public async Task<IEnumerable<ClienteDto>> GetAllClientesAsync()
+    public async Task<IEnumerable<ClienteResponseDto>> GetAllClientesAsync()
     {
         return await _clienteRepository.GetAllClientesAsync();
     }
@@ -30,7 +31,9 @@ public class ClienteApplication : IClienteApplication
         {
             return ResponseDto.Error("Cliente no encontrado.");
         }
-        return ResponseDto.Ok(cliente);
+
+        var clienteResponse = _mapper.Map<ClienteResponseDto>(cliente);
+        return ResponseDto.Ok(clienteResponse);
     }
 
     public async Task<ResponseDto> AddClienteAsync(CreateClienteDto clienteDto)
@@ -52,6 +55,7 @@ public class ClienteApplication : IClienteApplication
         var clienteResultDto = _mapper.Map<ClienteDto>(cliente);
 
         return ResponseDto.Ok(clienteResultDto, "Cliente creado con éxito.");
+
     }
 
     public async Task<ResponseDto> UpdateClienteAsync(int id, UpdateClienteDto clienteDto)
@@ -111,9 +115,10 @@ public class ClienteApplication : IClienteApplication
             return ResponseDto.Error("Cliente no encontrado.");
         }
 
-        cliente.Verificado = true;
-        var updateClienteDto = _mapper.Map<UpdateClienteDto>(cliente);
-        await _clienteRepository.UpdateClienteAsync(clientId, updateClienteDto);
+        var verifyClienteDto = _mapper.Map<VerifyClienteDto>(cliente);
+        verifyClienteDto.Verificado = true;
+
+        await _clienteRepository.UpdateClienteVerificationAsync(clientId, verifyClienteDto);
 
         return ResponseDto.Ok(null, "Correo verificado con éxito.");
     }
@@ -126,16 +131,43 @@ public class ClienteApplication : IClienteApplication
             return ResponseDto.Error("Cliente no encontrado.");
         }
 
-        cliente.VerificacionToken = token;
+        var verifyClienteDto = _mapper.Map<VerifyClienteDto>(cliente);
+        verifyClienteDto.VerificacionToken = token;
 
-        var updateClienteDto = _mapper.Map<UpdateClienteDto>(cliente);
-        await _clienteRepository.UpdateClienteAsync(clientId, updateClienteDto);
+        await _clienteRepository.UpdateClienteVerificationAsync(clientId, verifyClienteDto);
         return ResponseDto.Ok();
     }
 
     public async Task<bool> VerifyTokenAsync(int clientId, string token)
     {
         var cliente = await _clienteRepository.GetClienteByIdAsync(clientId);
-        return cliente != null && cliente.VerificacionToken == token;
+        return cliente != null && cliente.VerificacionToken == token && !cliente.Eliminado;
+    }
+
+    public async Task<ResponseDto> UpdateClienteVerificationAsync(int clientId, VerifyClienteDto verifyClienteDto)
+    {
+        var clienteExistente = await _clienteRepository.GetClienteByIdAsync(clientId);
+        if (clienteExistente == null)
+        {
+            return ResponseDto.Error("Cliente no encontrado.");
+        }
+
+        clienteExistente.Verificado = verifyClienteDto.Verificado;
+        clienteExistente.VerificacionToken = verifyClienteDto.VerificacionToken;
+        clienteExistente.FechaVerificacion = verifyClienteDto.FechaVerificacion;
+
+        await _clienteRepository.UpdateClienteVerificationAsync(clienteExistente.Id, verifyClienteDto);
+        return ResponseDto.Ok(null, "Verificación actualizada con éxito.");
+    }
+
+    public async Task<ResponseDto> GetClienteVerificationByIdAsync(int id)
+    {
+        var cliente = await _clienteRepository.GetClienteVerificationByIdAsync(id);
+        if (cliente == null)
+        {
+            return ResponseDto.Error("Cliente no encontrado.");
+        }
+
+        return ResponseDto.Ok(cliente);
     }
 }

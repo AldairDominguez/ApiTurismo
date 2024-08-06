@@ -3,6 +3,7 @@ using Microsoft.EntityFrameworkCore;
 using TurismoApp.Application.Interfaces;
 using TurismoApp.Common;
 using TurismoApp.Common.DTO;
+using TurismoApp.Common.DTO.RecorridoDtos;
 using TurismoApp.Common.Enums;
 using TurismoApp.Infraestructure.Context;
 using TurismoApp.Infraestructure.Entities;
@@ -153,6 +154,16 @@ public class RecorridoApplication : IRecorridoApplication
             return ResponseDto.Error("Recorrido no encontrado.");
         }
 
+        if (recorrido.Eliminado)
+        {
+            return ResponseDto.Error("No se puede actualizar el estado de un recorrido eliminado.");
+        }
+
+        if (!Enum.IsDefined(typeof(EstadoRecorrido), nuevoEstado))
+        {
+            return ResponseDto.Error("Estado no válido.");
+        }
+
         if (recorrido.Estado == EstadoRecorrido.Pendiente && nuevoEstado != EstadoRecorrido.EnProgreso)
         {
             return ResponseDto.Error("El estado sólo puede ser actualizado a 'En progreso' desde 'Pendiente'.");
@@ -282,17 +293,25 @@ public class RecorridoApplication : IRecorridoApplication
 
     public async Task<bool> ExisteRecorridoConMismasCiudadesYFecha(int ciudadOrigenId, int ciudadDestinoId, DateTime fechaViaje, int? excludeId = null)
     {
-        var recorridos = await _recorridoRepository.GetAllAsync();
-        return recorridos.Any(r => r.CiudadOrigenId == ciudadOrigenId && r.CiudadDestinoId == ciudadDestinoId && r.FechaViaje.Date == fechaViaje.Date && r.Id != excludeId);
+        var recorridos = await _context.Recorridos
+       .Where(r => r.CiudadOrigenId == ciudadOrigenId
+                && r.CiudadDestinoId == ciudadDestinoId
+                && r.FechaViaje.Date == fechaViaje.Date
+                && (!excludeId.HasValue || r.Id != excludeId.Value)
+                && !r.Eliminado)
+       .ToListAsync();
+
+        return recorridos.Any();
     }
     public async Task<IEnumerable<RecorridoDto>> GetRecorridosByEstadoAsync(EstadoRecorrido? estado)
     {
         var query = _context.Recorridos
-                            .Include(r => r.CiudadOrigen)
-                            .Include(r => r.CiudadDestino)
-                            .Include(r => r.ClienteRecorridos)
-                                .ThenInclude(cr => cr.Cliente)
-                            .AsQueryable();
+                        .Include(r => r.CiudadOrigen)
+                        .Include(r => r.CiudadDestino)
+                        .Include(r => r.ClienteRecorridos)
+                            .ThenInclude(cr => cr.Cliente)
+                        .Where(r => !r.Eliminado)
+                        .AsQueryable();
 
         if (estado.HasValue)
         {
@@ -306,24 +325,26 @@ public class RecorridoApplication : IRecorridoApplication
     public async Task<IEnumerable<RecorridoDto>> GetRecorridosByFechaAsync(DateTime fechaInicio, DateTime fechaFin)
     {
         var query = _context.Recorridos
-                            .Include(r => r.CiudadOrigen)
-                            .Include(r => r.CiudadDestino)
-                            .Include(r => r.ClienteRecorridos)
-                                .ThenInclude(cr => cr.Cliente)
-                            .Where(r => r.FechaViaje >= fechaInicio && r.FechaViaje <= fechaFin)
-                            .AsQueryable();
+                        .Include(r => r.CiudadOrigen)
+                        .Include(r => r.CiudadDestino)
+                        .Include(r => r.ClienteRecorridos)
+                            .ThenInclude(cr => cr.Cliente)
+                        .Where(r => r.FechaViaje >= fechaInicio && r.FechaViaje <= fechaFin && !r.Eliminado)
+                        .AsQueryable();
 
         var recorridos = await query.ToListAsync();
+
         return _mapper.Map<IEnumerable<RecorridoDto>>(recorridos);
+
     }
     public async Task<RecorridoDto> GetRecorridoByCodigoAsync(string codigo)
     {
         var recorrido = await _context.Recorridos
-                                      .Include(r => r.CiudadOrigen)
-                                      .Include(r => r.CiudadDestino)
-                                      .Include(r => r.ClienteRecorridos)
-                                          .ThenInclude(cr => cr.Cliente)
-                                      .FirstOrDefaultAsync(r => r.Codigo == codigo);
+                                 .Include(r => r.CiudadOrigen)
+                                 .Include(r => r.CiudadDestino)
+                                 .Include(r => r.ClienteRecorridos)
+                                     .ThenInclude(cr => cr.Cliente)
+                                 .FirstOrDefaultAsync(r => r.Codigo == codigo && !r.Eliminado);
         if (recorrido == null)
         {
             return null;

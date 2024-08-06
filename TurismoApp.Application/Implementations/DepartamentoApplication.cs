@@ -1,6 +1,8 @@
-﻿using TurismoApp.Application.Interfaces;
+﻿using Microsoft.EntityFrameworkCore;
+using TurismoApp.Application.Interfaces;
 using TurismoApp.Common;
 using TurismoApp.Common.DTO;
+using TurismoApp.Common.DTO.DepartamentoDtos;
 using TurismoApp.Infraestructure.Repositories.Interfaces;
 
 namespace TurismoApp.Application.Implementations;
@@ -18,6 +20,10 @@ public class DepartamentoApplication : IDepartamentoApplication
     {
         try
         {
+            if (await _departamentoRepository.ExistsDepartamentoAsync(departamento.Descripcion))
+            {
+                return ResponseDto.Error("El departamento ya existe.");
+            }
             var addedDepartamento = await _departamentoRepository.AddDepartamentoAsync(departamento);
             return ResponseDto.Ok(addedDepartamento);
         }
@@ -38,7 +44,7 @@ public class DepartamentoApplication : IDepartamentoApplication
             }
 
             await _departamentoRepository.DeleteDepartamentoAsync(id);
-            return ResponseDto.Ok();
+            return ResponseDto.Ok(null, "Se elimino con éxito");
         }
         catch (Exception ex)
         {
@@ -66,12 +72,18 @@ public class DepartamentoApplication : IDepartamentoApplication
                 return ResponseDto.Error("Departamento no encontrado");
             }
 
+            if (await _departamentoRepository.ExistsDepartamentoAsync(departamento.Descripcion, id))
+            {
+                return ResponseDto.Error("El departamento ya existe.");
+            }
+
             await _departamentoRepository.UpdateDepartamentoAsync(id, departamento);
-            return ResponseDto.Ok();
+            return ResponseDto.Ok(null, "Departamento actualizado con éxito");
         }
         catch (Exception ex)
         {
             return ResponseDto.Error(ex.Message);
         }
     }
+   
 }

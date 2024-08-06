@@ -4,6 +4,5 @@ public enum EstadoRecorrido
 {
     Pendiente,
     EnProgreso,
-    Finalizado,
-    Cancelado
+    Finalizado
 }

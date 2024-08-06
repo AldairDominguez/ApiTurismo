@@ -2,6 +2,7 @@
 using TurismoApp.Common;
 using TurismoApp.Common.Enums;
 using TurismoApp.Infraestructure.Entities;
+using TurismoApp.Common.DTO.RecorridoDtos;
 
 namespace TurismoApp.Application.Interfaces;
 

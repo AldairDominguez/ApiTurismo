@@ -14,7 +14,7 @@ public class Recorrido
     public Ciudad CiudadDestino { get; set; }
     public double Distancia { get; set; }
     public double Precio { get; set; }
-
+    public bool Eliminado { get; set; }
 
     public List<ClienteRecorrido> ClienteRecorridos { get; set; } = new List<ClienteRecorrido>();
 }

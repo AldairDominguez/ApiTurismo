@@ -1,7 +1,7 @@
 ﻿using AutoMapper;
 using Microsoft.AspNetCore.Mvc;
 using TurismoApp.Application.Interfaces;
-using TurismoApp.Common.DTO;
+using TurismoApp.Common.DTO.ClientesDtos;
 
 namespace TurismoApp.Api.Controllers
 {
@@ -23,17 +23,18 @@ namespace TurismoApp.Api.Controllers
         [HttpPost("Enviar-verificación")]
         public async Task<IActionResult> SendVerificationEmail(int clientId)
         {
-            var clienteResult = await _clienteApplication.GetClienteByIdAsync(clientId);
+            var clienteResult = await _clienteApplication.GetClienteVerificationByIdAsync(clientId);
             if (!clienteResult.IsValid)
             {
                 return NotFound("Cliente no encontrado.");
             }
 
-            var cliente = clienteResult.Data as ClienteDto;
+            var cliente = _mapper.Map<ClienteDto>(clienteResult.Data);
             if (cliente == null)
             {
                 return BadRequest("Datos del cliente no válidos.");
             }
+            Console.WriteLine($"Cliente ID: {cliente.Id}, Verificado: {cliente.Verificado}, Token: {cliente.VerificacionToken}");
 
             if (cliente.Verificado)
             {
@@ -69,7 +70,7 @@ namespace TurismoApp.Api.Controllers
                 return NotFound("Cliente no encontrado.");
             }
 
-            var cliente = clienteResult.Data as ClienteDto;
+            var cliente = _mapper.Map<VerifyClienteDto>(clienteResult.Data);
             if (cliente == null)
             {
                 return BadRequest("Datos del cliente no válidos.");
@@ -81,8 +82,8 @@ namespace TurismoApp.Api.Controllers
             }
 
             cliente.Verificado = true;
-            var updateClienteDto = _mapper.Map<UpdateClienteDto>(cliente);
-            var updateResult = await _clienteApplication.UpdateClienteAsync(clientId, updateClienteDto);
+            cliente.FechaVerificacion = DateTime.Now;
+            var updateResult = await _clienteApplication.UpdateClienteVerificationAsync(clientId, cliente);
             if (!updateResult.IsValid)
             {
                 return BadRequest(updateResult.Message);

@@ -1,4 +1,5 @@
 ﻿using TurismoApp.Common.DTO;
+using TurismoApp.Common.DTO.DepartamentoDtos;
 using TurismoApp.Infraestructure.Entities;
 
 namespace TurismoApp.Infraestructure.Repositories.Interfaces;
@@ -14,4 +15,5 @@ public interface IDepartamentoRepository
     Task UpdateDepartamentoAsync(int id, UpdateDepartamentoDto departamentoDto);
 
     Task DeleteDepartamentoAsync(int id);
+    Task<bool> ExistsDepartamentoAsync(string descripcion, int? excludeId = null);
 }

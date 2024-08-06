@@ -1,9 +1,9 @@
 ﻿using TurismoApp.Application.Interfaces;
-using TurismoApp.Common.DTO;
 using TurismoApp.Common;
 using TurismoApp.Infraestructure.Repositories.Interfaces;
 using TurismoApp.Infraestructure.Entities;
 using AutoMapper;
+using TurismoApp.Common.DTO.CiudadDtos;
 
 namespace TurismoApp.Application.Implementations;
 
@@ -27,6 +27,16 @@ public class CiudadApplication : ICiudadApplication
                 return ResponseDto.Error("El código ya existe.");
             }
 
+            if (await _ciudadRepository.ExistsCiudadAsync(ciudadDto.Descripcion, ciudadDto.DepartamentoId))
+            {
+                return ResponseDto.Error("La ciudad ya existe en este departamento.");
+            }
+
+            if (await _ciudadRepository.ExistsCiudadInOtherDepartamentoAsync(ciudadDto.Descripcion, ciudadDto.DepartamentoId))
+            {
+                return ResponseDto.Error("La ciudad ya existe en otro departamento.");
+            }
+
             await _ciudadRepository.AddCiudadAsync(ciudadDto);
             return ResponseDto.Ok("Ciudad creada con éxito");
         }
@@ -34,6 +44,7 @@ public class CiudadApplication : ICiudadApplication
         {
             return ResponseDto.Error(ex.Message);
         }
+
     }
 
     public async Task<ResponseDto> DeleteCiudadAsync(int id)
@@ -78,6 +89,16 @@ public class CiudadApplication : ICiudadApplication
             if (ciudadExistente == null)
             {
                 return ResponseDto.Error("Ciudad no encontrada");
+            }
+
+            if (await _ciudadRepository.ExistsCiudadAsync(ciudadDto.Descripcion, ciudadDto.DepartamentoId))
+            {
+                return ResponseDto.Error("La ciudad ya existe en este departamento.");
+            }
+
+            if (await _ciudadRepository.ExistsCiudadInOtherDepartamentoAsync(ciudadDto.Descripcion, ciudadDto.DepartamentoId))
+            {
+                return ResponseDto.Error("La ciudad ya existe en otro departamento.");
             }
 
             await _ciudadRepository.UpdateCiudadAsync(id, ciudadDto);

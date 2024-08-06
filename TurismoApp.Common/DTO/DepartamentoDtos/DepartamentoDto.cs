@@ -1,4 +1,4 @@
-﻿namespace TurismoApp.Common.DTO;
+﻿namespace TurismoApp.Common.DTO.DepartamentoDtos;
 
 public class DepartamentoDto
 {

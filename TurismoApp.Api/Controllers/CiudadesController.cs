@@ -1,6 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using TurismoApp.Application.Interfaces;
-using TurismoApp.Common.DTO;
+using TurismoApp.Common.DTO.CiudadDtos;
 
 namespace ApiTurismo.Controllers
 {

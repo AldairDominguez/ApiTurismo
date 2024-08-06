@@ -1,11 +1,10 @@
-﻿namespace TurismoApp.Common.DTO;
+﻿namespace TurismoApp.Common.DTO.RecorridoDtos;
 
-public class UpdateClienteDto
+public class PasajeroResponseDto
 {
+    public int Id { get; set; }
     public string Dni { get; set; }
     public string Nombres { get; set; }
     public string Apellidos { get; set; }
     public string Correo { get; set; }
-    public bool Verificado { get; set; }
-    public string VerificacionToken { get; set; }
 }

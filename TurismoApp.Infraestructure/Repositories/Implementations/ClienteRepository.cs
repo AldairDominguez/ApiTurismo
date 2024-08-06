@@ -1,6 +1,7 @@
 ﻿using AutoMapper;
 using Microsoft.EntityFrameworkCore;
 using TurismoApp.Common.DTO;
+using TurismoApp.Common.DTO.ClientesDtos;
 using TurismoApp.Infraestructure.Context;
 using TurismoApp.Infraestructure.Entities;
 using TurismoApp.Infraestructure.Repositories.Interfaces;
@@ -18,15 +19,20 @@ public class ClienteRepository : IClienteRepository
         _mapper = mapper;
     }
 
-    public async Task<IEnumerable<ClienteDto>> GetAllClientesAsync()
+    public async Task<IEnumerable<ClienteResponseDto>> GetAllClientesAsync()
     {
-        var clientes = await _context.Clientes.ToListAsync();
-        return _mapper.Map<IEnumerable<ClienteDto>>(clientes);
+        var clientes = await _context.Clientes.Where(c => !c.Eliminado).ToListAsync();
+        return _mapper.Map<IEnumerable<ClienteResponseDto>>(clientes);
     }
 
     public async Task<ClienteDto> GetClienteByIdAsync(int id)
     {
-        var cliente = await _context.Clientes.FindAsync(id);
+        var cliente = await _context.Clientes.Where(c => c.Id == id && !c.Eliminado).FirstOrDefaultAsync();
+        return _mapper.Map<ClienteDto>(cliente);
+    }
+    public async Task<ClienteDto> GetClienteVerificationByIdAsync(int id)
+    {
+        var cliente = await _context.Clientes.Where(c => c.Id == id && !c.Eliminado).FirstOrDefaultAsync();
         return _mapper.Map<ClienteDto>(cliente);
     }
 
@@ -54,28 +60,50 @@ public class ClienteRepository : IClienteRepository
         var cliente = await _context.Clientes.FindAsync(id);
         if (cliente != null)
         {
-            _context.Clientes.Remove(cliente);
+            cliente.Eliminado = true;
+            _context.Clientes.Update(cliente);
             await _context.SaveChangesAsync();
         }
     }
 
     public async Task<bool> DniExistsAsync(string dni, int? excludedClientId = null)
     {
+        var query = _context.Clientes.Where(c => !c.Eliminado);
+
         if (excludedClientId.HasValue)
         {
-            return await _context.Clientes.AnyAsync(c => c.Dni == dni && c.Id != excludedClientId.Value);
+            query = query.Where(c => c.Dni == dni && c.Id != excludedClientId.Value);
         }
-        return await _context.Clientes.AnyAsync(c => c.Dni == dni);
+        else
+        {
+            query = query.Where(c => c.Dni == dni);
+        }
+        return await query.AnyAsync();
     }
 
     public async Task<bool> CorreoExistsAsync(string correo, int? excludedClientId = null)
     {
+        var query = _context.Clientes.Where(c => !c.Eliminado);
         if (excludedClientId.HasValue)
         {
-            return await _context.Clientes.AnyAsync(c => c.Correo == correo && c.Id != excludedClientId.Value);
+            query = query.Where(c => c.Correo == correo && c.Id != excludedClientId.Value);
         }
-        return await _context.Clientes.AnyAsync(c => c.Correo == correo);
+        else
+        {
+            query = query.Where(c => c.Correo == correo);
+        }
+        return await query.AnyAsync();
     }
 
-
+    public async Task UpdateClienteVerificationAsync(int id, VerifyClienteDto clienteDto)
+    {
+        var cliente = await _context.Clientes.FindAsync(id);
+        if (cliente != null)
+        {
+            cliente.Verificado = clienteDto.Verificado;
+            cliente.VerificacionToken = clienteDto.VerificacionToken;
+            cliente.FechaVerificacion = clienteDto.FechaVerificacion;
+            await _context.SaveChangesAsync();
+        }
+    }
 }

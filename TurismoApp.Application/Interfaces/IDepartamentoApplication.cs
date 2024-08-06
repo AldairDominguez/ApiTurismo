@@ -1,5 +1,6 @@
 ﻿using TurismoApp.Common;
 using TurismoApp.Common.DTO;
+using TurismoApp.Common.DTO.DepartamentoDtos;
 
 namespace TurismoApp.Application.Interfaces;
 

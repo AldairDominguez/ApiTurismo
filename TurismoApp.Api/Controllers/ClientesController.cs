@@ -2,6 +2,7 @@
 using Microsoft.AspNetCore.Mvc;
 using TurismoApp.Application.Interfaces;
 using TurismoApp.Common.DTO;
+using TurismoApp.Common.DTO.ClientesDtos;
 
 namespace TurismoApp.Api.Controllers
 {
@@ -18,14 +19,14 @@ namespace TurismoApp.Api.Controllers
         }
 
         [HttpGet]
-        public async Task<ActionResult<IEnumerable<ClienteDto>>> GetAllClientes()
+        public async Task<ActionResult<IEnumerable<ClienteResponseDto>>> GetAllClientes()
         {
             var clientes = await _clienteApplication.GetAllClientesAsync();
             return Ok(clientes);
         }
 
         [HttpGet("{id}")]
-        public async Task<ActionResult<ClienteDto>> GetClienteById(int id)
+        public async Task<ActionResult<ClienteResponseDto>> GetClienteById(int id)
         {
             var result = await _clienteApplication.GetClienteByIdAsync(id);
             if (!result.IsValid)
@@ -38,6 +39,11 @@ namespace TurismoApp.Api.Controllers
         [HttpPost]
         public async Task<ActionResult> AddCliente(CreateClienteDto cliente)
         {
+            if (!ModelState.IsValid)
+            {
+                return BadRequest(ModelState);
+            }
+
             var result = await _clienteApplication.AddClienteAsync(cliente);
             if (result.IsValid)
             {

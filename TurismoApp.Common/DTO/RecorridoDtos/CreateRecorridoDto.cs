@@ -1,4 +1,4 @@
-﻿namespace TurismoApp.Common.DTO;
+﻿namespace TurismoApp.Common.DTO.RecorridoDtos;
 
 public class CreateRecorridoDto
 {

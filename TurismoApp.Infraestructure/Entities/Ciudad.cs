@@ -9,4 +9,5 @@ public class Ciudad
     public int DepartamentoId { get; set; }
     public string Descripcion { get; set; }
     public Departamento Departamento { get; set; }
+    public bool Eliminado { get; set; }
 }

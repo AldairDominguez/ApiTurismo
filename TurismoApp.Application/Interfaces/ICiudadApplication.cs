@@ -1,5 +1,5 @@
-﻿using TurismoApp.Common.DTO;
-using TurismoApp.Common;
+﻿using TurismoApp.Common;
+using TurismoApp.Common.DTO.CiudadDtos;
 
 namespace TurismoApp.Application.Interfaces;
 

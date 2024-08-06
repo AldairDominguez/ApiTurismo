@@ -2,6 +2,7 @@
 using Microsoft.Data.SqlClient;
 using TurismoApp.Application.Interfaces;
 using TurismoApp.Common.DTO;
+using TurismoApp.Common.DTO.DepartamentoDtos;
 
 namespace ApiTurismo.Controllers
 {
@@ -60,7 +61,7 @@ namespace ApiTurismo.Controllers
             var result = await _departamentoApplication.UpdateDepartamentoAsync(id, departamento);
             if (result.IsValid)
             {
-                return NoContent();
+                return Ok(result.Message);
             }
             else if (result.Message == "Departamento no encontrado")
             {
@@ -78,7 +79,7 @@ namespace ApiTurismo.Controllers
             var result = await _departamentoApplication.DeleteDepartamentoAsync(id);
             if (result.IsValid)
             {
-                return NoContent();
+                return Ok(result.Message);
             }
             else if (result.Message == "Departamento no encontrado")
             {
