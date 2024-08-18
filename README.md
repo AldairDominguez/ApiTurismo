@@ -103,21 +103,7 @@ Puedes probar la API utilizando la interfaz de Swagger proporcionada en el despl
 1. **URL de Swagger:**
 
     Puedes acceder a la documentación y probar los endpoints directamente desde [http://apiturismo.somee.com/swagger/index.html](http://apiturismo.somee.com/swagger/index.html).
-
-2. **Endpoints Disponibles:**
-   - **Ciudades:**
-     - `GET /api/Ciudades`
-     - `POST /api/Ciudades`
-     - `GET /api/Ciudades/{id}`
-     - `PUT /api/Ciudades/{id}`
-     - `DELETE /api/Ciudades/{id}`
-   - **Clientes:**
-     - `GET /api/Clientes`
-     - `POST /api/Clientes`
-     - `GET /api/Clientes/{id}`
-     - `PUT /api/Clientes/{id}`
-     - `DELETE /api/Clientes/{id}`
-
+   
    Puedes usar la interfaz para enviar solicitudes y ver las respuestas en tiempo real.
 
 ## Contribuciones
