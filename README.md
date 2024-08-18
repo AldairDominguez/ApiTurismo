@@ -3,7 +3,7 @@
 ApiTurismo es un proyecto diseñado para proporcionar servicios relacionados con la gestión de turismo a través de una arquitectura basada en microservicios. Este proyecto está construido utilizando ASP.NET Core y sigue una arquitectura de capas, lo que facilita la separación de preocupaciones y la escalabilidad del sistema.
 
 ## Arquitectura del Proyecto
-
+![Diagrama de Arquitectura](https://github.com/AldairDominguez/ApiTurismo/blob/main/TurismoApp.Api/Properties/image.png)
 El proyecto se organiza en varias capas y bibliotecas de clases que se comunican entre sí para gestionar las operaciones de la API de turismo. A continuación se describen los componentes clave:
 
 ### 1. TurismoApp.Common (Biblioteca de Clases)
