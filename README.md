@@ -66,9 +66,9 @@ Antes de ejecutar el proyecto, asegúrate de tener instalados los siguientes req
     dotnet restore
     ```
 
-3. **Configurar la cadena de conexión de la base de datos:**
+3. **Configurar la cadena de conexión de la base de datos y las credenciales del servidor SMTP:**
 
-    Abre el archivo `appsettings.json` en la carpeta `TurismoApp.API` y actualiza la cadena de conexión de la base de datos según tu entorno. Además, configura las credenciales del servidor SMTP en el archivo `EmailService.cs`, ubicado en la carpeta `TurismoApp.Services`, para habilitar el envío de correos electrónicos.
+   Abre el archivo `appsettings.json` en la carpeta `TurismoApp.API` y actualiza la cadena de conexión de la base de datos según tu entorno. Además, configura las credenciales del servidor SMTP en el archivo `EmailService.cs`, ubicado en la carpeta `TurismoApp.Services`, para habilitar el envío de correos electrónicos.
 
 4. **Aplicar migraciones y actualizar la base de datos:**
 
