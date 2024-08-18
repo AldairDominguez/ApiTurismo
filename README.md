@@ -6,41 +6,6 @@ ApiTurismo es un proyecto diseñado para proporcionar servicios relacionados con
 ![Diagrama de Arquitectura](https://github.com/AldairDominguez/ApiTurismo/blob/main/TurismoApp.Api/Properties/image.png)
 El proyecto se organiza en varias capas y bibliotecas de clases que se comunican entre sí para gestionar las operaciones de la API de turismo. A continuación se describen los componentes clave:
 
-### 1. TurismoApp.Common (Biblioteca de Clases)
-- **Propósito:** Contiene clases comunes que son reutilizadas por otras capas del proyecto.
-- **Componentes:**
-  - `Dto` (Data Transfer Objects)
-  - `Helpers`
-  - `Data Annotations Custom` (Anotaciones personalizadas para validaciones)
-
-### 2. TurismoApp.Application (Biblioteca de Clases)
-- **Propósito:** Implementa la lógica de negocio y las interfaces necesarias para las operaciones de la aplicación.
-- **Componentes:**
-  - `Lógica de negocio` (Implementación e interfaces)
-
-### 3. TurismoApp.Infrastructure (Biblioteca de Clases)
-- **Propósito:** Gestiona la comunicación con la base de datos y otras infraestructuras necesarias.
-- **Componentes:**
-  - `DbContext` (Contexto de la base de datos)
-  - `Repositories` (Implementación e interfaces para acceso a datos)
-  - `Entities`
-  - `Mapping` (Mapeo de entidades a la base de datos)
-
-### 4. TurismoApp.API (API Web)
-- **Propósito:** Expone los servicios RESTful a través de controladores que manejan las solicitudes HTTP.
-- **Componentes:**
-  - `Controllers`
-  - `Settings`
-
-### 5. TurismoApp.Services (Biblioteca de Clases)
-- **Propósito:** Gestiona servicios externos, como el envío de correos electrónicos.
-- **Componentes:**
-  - `EmailService` (Implementación e interfaz para envío de correos a través de un servidor SMTP)
-
-### 6. Base de Datos y Servidor SMTP
-- **Base de Datos:** Gestiona el almacenamiento persistente de la información.
-- **Servidor SMTP:** Encargado del envío de correos electrónicos desde el servicio de la aplicación.
-
 ## Requisitos Previos
 
 Antes de ejecutar el proyecto, asegúrate de tener instalados los siguientes requisitos:
