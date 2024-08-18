@@ -45,7 +45,7 @@ El proyecto se organiza en varias capas y bibliotecas de clases que se comunican
 
 Antes de ejecutar el proyecto, asegúrate de tener instalados los siguientes requisitos:
 
-- **.NET 6.0 SDK o superior**
+- **.NET 8.0 SDK o superior**
 - **SQL Server** o cualquier otro servidor compatible para la base de datos
 - **Servidor SMTP** para el servicio de correo electrónico
 
@@ -68,7 +68,7 @@ Antes de ejecutar el proyecto, asegúrate de tener instalados los siguientes req
 
 3. **Configurar la cadena de conexión de la base de datos y las credenciales del servidor SMTP:**
 
-   Abre el archivo `appsettings.json` en la carpeta `TurismoApp.API` y actualiza la cadena de conexión de la base de datos según tu entorno. Además, configura las credenciales del servidor SMTP en el archivo `EmailService.cs`, ubicado en la carpeta `TurismoApp.Services`, para habilitar el envío de correos electrónicos.
+   Abre el archivo `appsettings.json` en la carpeta `TurismoApp.API` y actualiza la cadena de conexión de la base de datos según tu entorno. Además, configura las credenciales del servidor SMTP en el archivo       `EmailService.cs`, ubicado en la carpeta `TurismoApp.Services`, para habilitar el envío de correos electrónicos.
 
 4. **Aplicar migraciones y actualizar la base de datos:**
 
