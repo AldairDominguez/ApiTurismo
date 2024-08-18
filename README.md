@@ -77,6 +77,15 @@ Antes de ejecutar el proyecto, asegúrate de tener instalados los siguientes req
     ```bash
     dotnet ef database update --project TurismoApp.Infrastructure
     ```
+    Alternativamente, si prefieres ejecutar la migración manualmente en tu PC, puedes utilizar los siguientes comandos en la consola del Package Manager (PMC) o en la terminal de comandos:
+   
+    Crear la migración inicial
+   
+    ```Add-Migration InitialCreate -Project TurismoApp.Infrastructure```
+   
+    Aplicar la migración a la base de dato
+   
+    ```Update-Database -Project TurismoApp.Infrastructure```
 
 ## Ejecución
 
