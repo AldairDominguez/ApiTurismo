@@ -94,9 +94,31 @@ Antes de ejecutar el proyecto, asegúrate de tener instalados los siguientes req
 
     La API estará disponible en `https://localhost:5001` o `http://localhost:5000`.
 
-## Uso
+## Probar la API
 
-Una vez que la API esté en ejecución, puedes interactuar con ella utilizando herramientas como Postman o cURL para realizar solicitudes HTTP a los diferentes endpoints.
+Puedes probar la API utilizando la interfaz de Swagger proporcionada en el despliegue en la web. Swagger permite interactuar fácilmente con los endpoints y ver las respuestas de la API.
+
+### Acceso a la Documentación de la API con Swagger
+
+1. **URL de Swagger:**
+
+    Puedes acceder a la documentación y probar los endpoints directamente desde [http://apiturismo.somee.com/swagger/index.html](http://apiturismo.somee.com/swagger/index.html).
+
+2. **Endpoints Disponibles:**
+   - **Ciudades:**
+     - `GET /api/Ciudades`
+     - `POST /api/Ciudades`
+     - `GET /api/Ciudades/{id}`
+     - `PUT /api/Ciudades/{id}`
+     - `DELETE /api/Ciudades/{id}`
+   - **Clientes:**
+     - `GET /api/Clientes`
+     - `POST /api/Clientes`
+     - `GET /api/Clientes/{id}`
+     - `PUT /api/Clientes/{id}`
+     - `DELETE /api/Clientes/{id}`
+
+   Puedes usar la interfaz para enviar solicitudes y ver las respuestas en tiempo real.
 
 ## Contribuciones
 
