@@ -85,7 +85,7 @@ Antes de ejecutar el proyecto, asegúrate de tener instalados los siguientes req
     Add-Migration InitialCreate -Project TurismoApp.Infrastructure
     ```
    
-    Aplicar la migración a la base de dato
+    Aplicar la migración a la base de datos
    
     ```bash
     Update-Database -Project TurismoApp.Infrastructure
