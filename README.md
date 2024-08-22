@@ -4,7 +4,7 @@ ApiTurismo es un proyecto diseñado para proporcionar servicios relacionados con
 
 ## 🏛️ Arquitectura del Proyecto
 El proyecto se organiza en varias capas y bibliotecas de clases que se comunican entre sí para gestionar las operaciones de la API de turismo. A continuación se describen los componentes clave:
-![Diagrama de Arquitectura](https://github.com/AldairDominguez/ApiTurismo/blob/main/TurismoApp.Api/Properties/image.png)
+![Diagrama de Arquitectura](https://github.com/AldairDominguez/ApiTurismo/blob/main/TurismoApp.Api/Properties/asdasd.PNG)
 
 ## ⚙️ Requisitos Previos
 
