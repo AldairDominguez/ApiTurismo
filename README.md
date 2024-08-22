@@ -2,46 +2,11 @@
 
 ApiTurismo es un proyecto diseñado para proporcionar servicios relacionados con la gestión de turismo a través de una arquitectura basada en microservicios. Este proyecto está construido utilizando ASP.NET Core y sigue una arquitectura de capas, lo que facilita la separación de preocupaciones y la escalabilidad del sistema.
 
-## Arquitectura del Proyecto
-
+## 🏛️ Arquitectura del Proyecto
 El proyecto se organiza en varias capas y bibliotecas de clases que se comunican entre sí para gestionar las operaciones de la API de turismo. A continuación se describen los componentes clave:
+![Diagrama de Arquitectura](https://github.com/AldairDominguez/ApiTurismo/blob/main/TurismoApp.Api/Properties/image.png)
 
-### 1. TurismoApp.Common (Biblioteca de Clases)
-- **Propósito:** Contiene clases comunes que son reutilizadas por otras capas del proyecto.
-- **Componentes:**
-  - `Dto` (Data Transfer Objects)
-  - `Helpers`
-  - `Data Annotations Custom` (Anotaciones personalizadas para validaciones)
-
-### 2. TurismoApp.Application (Biblioteca de Clases)
-- **Propósito:** Implementa la lógica de negocio y las interfaces necesarias para las operaciones de la aplicación.
-- **Componentes:**
-  - `Lógica de negocio` (Implementación e interfaces)
-
-### 3. TurismoApp.Infrastructure (Biblioteca de Clases)
-- **Propósito:** Gestiona la comunicación con la base de datos y otras infraestructuras necesarias.
-- **Componentes:**
-  - `DbContext` (Contexto de la base de datos)
-  - `Repositories` (Implementación e interfaces para acceso a datos)
-  - `Entities`
-  - `Mapping` (Mapeo de entidades a la base de datos)
-
-### 4. TurismoApp.API (API Web)
-- **Propósito:** Expone los servicios RESTful a través de controladores que manejan las solicitudes HTTP.
-- **Componentes:**
-  - `Controllers`
-  - `Settings`
-
-### 5. TurismoApp.Services (Biblioteca de Clases)
-- **Propósito:** Gestiona servicios externos, como el envío de correos electrónicos.
-- **Componentes:**
-  - `EmailService` (Implementación e interfaz para envío de correos a través de un servidor SMTP)
-
-### 6. Base de Datos y Servidor SMTP
-- **Base de Datos:** Gestiona el almacenamiento persistente de la información.
-- **Servidor SMTP:** Encargado del envío de correos electrónicos desde el servicio de la aplicación.
-
-## Requisitos Previos
+## ⚙️ Requisitos Previos
 
 Antes de ejecutar el proyecto, asegúrate de tener instalados los siguientes requisitos:
 
@@ -49,7 +14,7 @@ Antes de ejecutar el proyecto, asegúrate de tener instalados los siguientes req
 - **SQL Server** o cualquier otro servidor compatible para la base de datos
 - **Servidor SMTP** para el servicio de correo electrónico
 
-## Instalación
+## 🛠️ Instalación
 
 1. **Clonar el repositorio:**
 
@@ -91,7 +56,7 @@ Antes de ejecutar el proyecto, asegúrate de tener instalados los siguientes req
     Update-Database -Project TurismoApp.Infrastructure
     ```
 
-## Ejecución
+## 🚀 Ejecución
 
 1. **Compilar el proyecto:**
 
@@ -107,7 +72,7 @@ Antes de ejecutar el proyecto, asegúrate de tener instalados los siguientes req
 
     La API estará disponible en `https://localhost:5001` o `http://localhost:5000`.
 
-## Probar la API
+## ⚡ Probar la API
 
 Puedes probar la API utilizando la interfaz de Swagger proporcionada en el despliegue en la web. Swagger permite interactuar fácilmente con los endpoints y ver las respuestas de la API.
 
@@ -117,10 +82,10 @@ Puedes probar la API utilizando la interfaz de Swagger proporcionada en el despl
 
     Puedes acceder a la documentación y probar los endpoints directamente desde [http://apiturismo.somee.com/swagger/index.html](http://apiturismo.somee.com/swagger/index.html).
 
-## Contribuciones
+## 🤝 Contribuciones
 
 Si deseas contribuir a este proyecto, puedes hacer un fork del repositorio y enviar un pull request con tus mejoras o correcciones. Todas las contribuciones son bienvenidas.
 
-## Licencia
+## 📄 Licencia
 
 Este proyecto está bajo la [MIT License](https://opensource.org/licenses/MIT).
