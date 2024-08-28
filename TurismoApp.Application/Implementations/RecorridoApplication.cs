@@ -33,6 +33,7 @@ public class RecorridoApplication : IRecorridoApplication
         .Include(r => r.CiudadDestino)
         .Include(r => r.ClienteRecorridos)
             .ThenInclude(cr => cr.Cliente)
+        .Where(r => !r.Eliminado)
         .ToListAsync();
 
         return _mapper.Map<IEnumerable<RecorridoDto>>(recorridos);
